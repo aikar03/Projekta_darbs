@@ -335,9 +335,9 @@ def beigt_speli():
     global intervalu_skats, beigu_skats, punkti, uzdevumu_skaits
     
     intervalu_skats.pack_forget()
-    atjaunot_uzstadijumu_skatu()
-    
-    beigu_skats = tk.Frame(teksta_kaste)
+
+    for widget in beigu_skats.winfo_children():
+        widget.destroy()
     
     tk.Label(beigu_skats, text=f"Tu atpazini {punkti} no {uzdevumu_skaits} intervāliem!", font=('Verdana', 24, 'bold'), fg='#800000').pack(pady=(80, 40))
     
@@ -348,7 +348,7 @@ def beigt_speli():
     beigu_skats.pack(fill='both', expand=True)
 
 def jauna_spēle_no_beigām():
-    global beigu_skats, intervalu_skats, intervala_piemers, punkti
+    global beigu_skats, intervalu_skats, intervala_piemers, punkti, pogaAtkarto
     
     beigu_skats.pack_forget()
     
@@ -358,19 +358,36 @@ def jauna_spēle_no_beigām():
     
     for p, t in pogu_saraksts:
         p.config(bg='SystemButtonFace') #Atjauno pogas
+
+    pogaAtkarto.config(text="Atškaņot intervālu", command=atkartot_pedejo, 
+                       width=20, height=2, bg='lightgrey', fg='#800000', 
+                       font=('Verdana', 12, 'bold'))
+    
+    for widget in beigu_skats.winfo_children():
+        widget.destroy()
     
     intervalu_skats.pack(fill='both', expand=True)
     
     ieladet_audio()
 
 def uz_uzstadijumiem_no_beigām():
-    global beigu_skats, uzstadijumu_skats, intervala_piemers, punkti
+    global beigu_skats, uzstadijumu_skats, intervala_piemers, punkti, pogaAtkarto 
     
     beigu_skats.pack_forget()
     
     intervala_piemers = 0
     punkti = 0
+
+    for p, t in pogu_saraksts:
+        p.config(bg='SystemButtonFace')
   
+    pogaAtkarto.config(text="Atškaņot intervālu", command=atkartot_pedejo, 
+                       width=20, height=2, bg='lightgrey', fg='#800000', 
+                       font=('Verdana', 12, 'bold'))
+    
+    for widget in beigu_skats.winfo_children():
+        widget.destroy()
+
     atjaunot_uzstadijumu_skatu()
     
     uzstadijumu_skats.pack(fill='both', expand=True)
