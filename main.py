@@ -179,14 +179,14 @@ def C4():
 
 
 
-def close_all_windows():
+def Apturet_programmu():
     window.destroy()
 
-def funkUzstadijumi():
+def Uzstadijumi():
     sakuma_skats.pack_forget()  # aizver skatu
     uzstadijumu_skats.pack(fill='both', expand=True)  # atver skatu
 
-def funkSakt():
+def Sakt():
     global izvelets_skaits
     global izvelets_rezims
     global uzdevumu_skaits, punkti, intervala_piemers
@@ -206,12 +206,12 @@ def funkSakt():
             intervala_piemers = 0
             punkti = 0
             
-            atjaunot_skaititaju()
+            Atjaunot_skaititaju()
 
             uzstadijumu_skats.pack_forget()
             intervalu_skats.pack(fill='both', expand=True)
 
-            ieladet_audio()
+            Ieladet_audio()
             return
             
         else:
@@ -225,17 +225,17 @@ def funkSakt():
         bridinajums.after(2000, bridinajums.destroy)
         return
 
-def saglabat_rezims():
+def Saglabat_rezims():
     global izvelets_rezims
     izvelets_rezims = rezims.get()
 
-def ieladet_visus_audio():
+def Ieladet_visus_audio():
     global melodiski_audio, harmoniski_audio
     
     melodiski_audio = list(Path(Melodiski).glob("*.mp3"))
     harmoniski_audio = list(Path(Harmoniski).glob("*.mp3")) 
 
-def ieladet_audio():
+def Ieladet_audio():
     global pedejais_fails, izvelets_rezims, melodiski_audio, harmoniski_audio, sobrid_intervals
     
     for p, t in pogu_saraksts:
@@ -253,14 +253,14 @@ def ieladet_audio():
         mixer.music.play()
         print(f"Atskaņots harmoniskais: {pedejais_fails.name}")
 
-    sobrid_intervals = atpazit_intervalu(pedejais_fails.name)
+    sobrid_intervals = Atpazit_intervalu(pedejais_fails.name)
 
 
-def atkartot_pedejo():
+def Atkartot_pedejo():
     mixer.music.load(str(pedejais_fails))
     mixer.music.play()
         
-def atpazit_intervalu(faila_nosaukums):
+def Atpazit_intervalu(faila_nosaukums):
     
     nosaukums = Path(faila_nosaukums).stem
     atslega = nosaukums[:2]
@@ -283,10 +283,10 @@ def atpazit_intervalu(faila_nosaukums):
     return intervāli.get(atslega, "Nezināms")
 
 
-def parbaudit_atbildi(atbilde, poga):
+def Parbaudit_atbildi(atbilde, poga):
     global pogaAtkarto, intervala_piemers, punkti, uzdevumu_skaits
 
-    pareiza = atpazit_intervalu(pedejais_fails.name)
+    pareiza = Atpazit_intervalu(pedejais_fails.name)
 
     for p, t in pogu_saraksts:
         p.config(bg='SystemButtonFace')
@@ -302,23 +302,23 @@ def parbaudit_atbildi(atbilde, poga):
                 break
     
     intervala_piemers += 1 
-    atjaunot_skaititaju()
+    Atjaunot_skaititaju()
     
     if intervala_piemers >= uzdevumu_skaits:
-        pogaAtkarto.config(text="Beigt sesiju", command=beigt_speli, width=20, height=2, bg='lightgrey', fg='#800000', font=('Verdana', 12, 'bold'))
+        pogaAtkarto.config(text="Beigt sesiju", command=Beigt_speli, width=20, height=2, bg='lightgrey', fg='#800000', font=('Verdana', 12, 'bold'))
         return
 
-    pogaAtkarto.config(text="Nākamais intervāls", command=nakamais_intervals, width=20, height=2, bg='lightgrey', fg='#800000', font=('Verdana', 12, 'bold'))
+    pogaAtkarto.config(text="Nākamais intervāls", command=Nakamais_intervals, width=20, height=2, bg='lightgrey', fg='#800000', font=('Verdana', 12, 'bold'))
 
 
-def nakamais_intervals():
+def Nakamais_intervals():
     global pogaAtkarto
 
-    pogaAtkarto.config(text="Atškaņot intervālu", command=atkartot_pedejo, width=20, height=2, bg = 'lightgrey', fg = '#800000', font = ('Verdana', 12, 'bold'))
+    pogaAtkarto.config(text="Atškaņot intervālu", command=Atkartot_pedejo, width=20, height=2, bg = 'lightgrey', fg = '#800000', font = ('Verdana', 12, 'bold'))
     
-    ieladet_audio()  #Atskaņo nākamo intervālu
+    Ieladet_audio()  #Atskaņo nākamo intervālu
 
-def atjaunot_skaititaju():
+def Atjaunot_skaititaju():
     global intervala_piemers, uzdevumu_skaits, skaititajs
     
     if uzdevumu_skaits:
@@ -326,7 +326,7 @@ def atjaunot_skaititaju():
     else:
         skaititajs.config(text=" ")
 
-def atjaunot_uzstadijumu_skatu():
+def Atjaunot_uzstadijumu_skatu():
     global ievade, rezims
     
     ievade.delete(0, tk.END)
@@ -337,7 +337,7 @@ def atjaunot_uzstadijumu_skatu():
             widget.destroy()
 
 
-def beigt_speli():
+def Beigt_speli():
     global intervalu_skats, beigu_skats, punkti, uzdevumu_skaits, poga_velreiz, poga_uzstadijumi
     
     intervalu_skats.pack_forget()
@@ -347,25 +347,25 @@ def beigt_speli():
     
     tk.Label(beigu_skats, text=f"Tu atpazini {punkti} no {uzdevumu_skaits} intervāliem!", font=('Verdana', 24, 'bold'), fg='#800000').pack(pady=(80, 40))
     
-    poga_velreiz=tk.Button(beigu_skats, text="Spēlēt vēlreiz", command=jauna_spēle_no_beigām, width=20, height=2, bg='lightgrey', font=('Verdana', 12)).pack(pady=10)
+    poga_velreiz=tk.Button(beigu_skats, text="Spēlēt vēlreiz", command=Jauna_spēle_no_beigām, width=20, height=2, bg='lightgrey', font=('Verdana', 12)).pack(pady=10)
     
-    poga_uzstadijumi = tk.Button(beigu_skats, text="Sesijas uzstādījumi", command=uz_uzstadijumiem_no_beigām, width=20, height=2, bg='lightgrey', font=('Verdana', 12)).pack(pady=10)
+    poga_uzstadijumi = tk.Button(beigu_skats, text="Sesijas uzstādījumi", command=Uz_uzstadijumiem_no_beigām, width=20, height=2, bg='lightgrey', font=('Verdana', 12)).pack(pady=10)
     
     beigu_skats.pack(fill='both', expand=True)
 
-def jauna_spēle_no_beigām():
+def Jauna_spēle_no_beigām():
     global beigu_skats, intervalu_skats, intervala_piemers, punkti, pogaAtkarto
     
     beigu_skats.pack_forget()
     
     intervala_piemers = 0
     punkti = 0
-    atjaunot_skaititaju()
+    Atjaunot_skaititaju()
     
     for p, t in pogu_saraksts:
         p.config(bg='SystemButtonFace') #Atjauno pogas
 
-    pogaAtkarto.config(text="Atškaņot intervālu", command=atkartot_pedejo, 
+    pogaAtkarto.config(text="Atškaņot intervālu", command=Atkartot_pedejo, 
                        width=20, height=2, bg='lightgrey', fg='#800000', 
                        font=('Verdana', 12, 'bold'))
     
@@ -374,9 +374,9 @@ def jauna_spēle_no_beigām():
     
     intervalu_skats.pack(fill='both', expand=True)
     
-    ieladet_audio()
+    Ieladet_audio()
 
-def uz_uzstadijumiem_no_beigām():
+def Uz_uzstadijumiem_no_beigām():
     global beigu_skats, uzstadijumu_skats, intervala_piemers, punkti, pogaAtkarto 
     
     beigu_skats.pack_forget()
@@ -387,14 +387,14 @@ def uz_uzstadijumiem_no_beigām():
     for p, t in pogu_saraksts:
         p.config(bg='SystemButtonFace')
   
-    pogaAtkarto.config(text="Atškaņot intervālu", command=atkartot_pedejo, 
+    pogaAtkarto.config(text="Atškaņot intervālu", command=Atkartot_pedejo, 
                        width=20, height=2, bg='lightgrey', fg='#800000', 
                        font=('Verdana', 12, 'bold'))
     
     for widget in beigu_skats.winfo_children():
         widget.destroy()
 
-    atjaunot_uzstadijumu_skatu()
+    Atjaunot_uzstadijumu_skatu()
     
     uzstadijumu_skats.pack(fill='both', expand=True)
 
@@ -539,7 +539,7 @@ sakuma_skats = tk.Frame(teksta_kaste)
 uzraksts = tk.Label(sakuma_skats, text="Skaņas intervāli", font=('Verdana', 32, 'bold'), fg = '#800000')
 uzraksts.pack(pady=(100, 40))
 
-pogaUzstadijumi = tk.Button(sakuma_skats, text="Sesijas uzstādījumi", command=funkUzstadijumi, width=20, height=2, bg = 'lightgrey', fg = '#800000', font = ('Verdana', 12, 'bold'))
+pogaUzstadijumi = tk.Button(sakuma_skats, text="Sesijas uzstādījumi", command=Uzstadijumi, width=20, height=2, bg = 'lightgrey', fg = '#800000', font = ('Verdana', 12, 'bold'))
 pogaUzstadijumi.pack(pady=10)
 
 #------------------------------- uzstādījumu skats -------------------------------#
@@ -558,13 +558,13 @@ kaste_opcijam = tk.Frame(uzstadijumu_skats)
 kaste_opcijam.pack(pady=10)
 rezims = tk.StringVar(value="")
 
-izvele_a = tk.Radiobutton(kaste_opcijam, text="Melodiski",variable=rezims, value="Mel", font=('Verdana', 11), command=saglabat_rezims)
+izvele_a = tk.Radiobutton(kaste_opcijam, text="Melodiski",variable=rezims, value="Mel", font=('Verdana', 11), command=Saglabat_rezims)
 izvele_a.pack(side=tk.LEFT, padx=30)
 
-izvele_b = tk.Radiobutton(kaste_opcijam, text="Harmoniski",variable=rezims, value="Harm", font=('Verdana', 11), command=saglabat_rezims)
+izvele_b = tk.Radiobutton(kaste_opcijam, text="Harmoniski",variable=rezims, value="Harm", font=('Verdana', 11), command=Saglabat_rezims)
 izvele_b.pack(side=tk.LEFT, padx=30)
 
-pogaSakt = tk.Button(uzstadijumu_skats, text="Sākt sesiju", command=funkSakt, width=20, height=2, bg = 'lightgrey', fg = '#800000', font = ('Verdana', 12, 'bold'))
+pogaSakt = tk.Button(uzstadijumu_skats, text="Sākt sesiju", command=Sakt, width=20, height=2, bg = 'lightgrey', fg = '#800000', font = ('Verdana', 12, 'bold'))
 pogaSakt.pack(pady=10)
 
 #------------------------------- intervalu skats -------------------------------#
@@ -585,67 +585,67 @@ pogu_ramis2.pack(pady=20)
 #------------------------------- intervalu pogas -------------------------------#
 poga_m2 = tk.Button(pogu_ramis1, text="m2", width=10, height=2)
 poga_m2.pack(side=tk.LEFT, padx=5)
-poga_m2.config(command=lambda: parbaudit_atbildi("Msekunda", poga_m2))
+poga_m2.config(command=lambda: Parbaudit_atbildi("Msekunda", poga_m2))
 pogu_saraksts.append([poga_m2, "Msekunda"])
 
 poga_l2 = tk.Button(pogu_ramis1, text="l2", width=10, height=2)
 poga_l2.pack(side=tk.LEFT, padx=5)
-poga_l2.config(command=lambda: parbaudit_atbildi("Lsekunda", poga_l2))
+poga_l2.config(command=lambda: Parbaudit_atbildi("Lsekunda", poga_l2))
 pogu_saraksts.append([poga_l2, "Lsekunda"])
 
 poga_m3 = tk.Button(pogu_ramis1, text="m3", width=10, height=2)
 poga_m3.pack(side=tk.LEFT, padx=5)
-poga_m3.config(command=lambda: parbaudit_atbildi("Mterca", poga_m3))
+poga_m3.config(command=lambda: Parbaudit_atbildi("Mterca", poga_m3))
 pogu_saraksts.append([poga_m3, "Mterca"])
 
 poga_l3 = tk.Button(pogu_ramis1, text="l3", width=10, height=2)
 poga_l3.pack(side=tk.LEFT, padx=5)
-poga_l3.config(command=lambda: parbaudit_atbildi("Lterca", poga_l3))
+poga_l3.config(command=lambda: Parbaudit_atbildi("Lterca", poga_l3))
 pogu_saraksts.append([poga_l3, "Lterca"])
 
 poga_t4 = tk.Button(pogu_ramis1, text="t4", width=10, height=2)
 poga_t4.pack(side=tk.LEFT, padx=5)
-poga_t4.config(command=lambda: parbaudit_atbildi("Tkvarta", poga_t4))
+poga_t4.config(command=lambda: Parbaudit_atbildi("Tkvarta", poga_t4))
 pogu_saraksts.append([poga_t4, "Tkvarta"])
 
 poga_tritons = tk.Button(pogu_ramis1, text="pl4/pm5", width=10, height=2)
 poga_tritons.pack(side=tk.LEFT, padx=5)
-poga_tritons.config(command=lambda: parbaudit_atbildi("Tritons", poga_tritons))
+poga_tritons.config(command=lambda: Parbaudit_atbildi("Tritons", poga_tritons))
 pogu_saraksts.append([poga_tritons, "Tritons"])
 
 poga_t5 = tk.Button(pogu_ramis2, text="t5", width=10, height=2)
 poga_t5.pack(side=tk.LEFT, padx=5)
-poga_t5.config(command=lambda: parbaudit_atbildi("Tkvinta", poga_t5))
+poga_t5.config(command=lambda: Parbaudit_atbildi("Tkvinta", poga_t5))
 pogu_saraksts.append([poga_t5, "Tkvinta"])
 
 poga_m6 = tk.Button(pogu_ramis2, text="m6", width=10, height=2)
 poga_m6.pack(side=tk.LEFT, padx=5)
-poga_m6.config(command=lambda: parbaudit_atbildi("Mseksta", poga_m6))
+poga_m6.config(command=lambda: Parbaudit_atbildi("Mseksta", poga_m6))
 pogu_saraksts.append([poga_m6, "Mseksta"])
 
 poga_l6 = tk.Button(pogu_ramis2, text="l6", width=10, height=2)
 poga_l6.pack(side=tk.LEFT, padx=5)
-poga_l6.config(command=lambda: parbaudit_atbildi("Lseksta", poga_l6))
+poga_l6.config(command=lambda: Parbaudit_atbildi("Lseksta", poga_l6))
 pogu_saraksts.append([poga_l6, "Lseksta"])
 
 poga_m7 = tk.Button(pogu_ramis2, text="m7", width=10, height=2)
 poga_m7.pack(side=tk.LEFT, padx=5)
-poga_m7.config(command=lambda: parbaudit_atbildi("Mseptima", poga_m7))
+poga_m7.config(command=lambda: Parbaudit_atbildi("Mseptima", poga_m7))
 pogu_saraksts.append([poga_m7, "Mseptima"])
 
 poga_l7 = tk.Button(pogu_ramis2, text="l7", width=10, height=2)
 poga_l7.pack(side=tk.LEFT, padx=5)
-poga_l7.config(command=lambda: parbaudit_atbildi("Lseptima", poga_l7))
+poga_l7.config(command=lambda: Parbaudit_atbildi("Lseptima", poga_l7))
 pogu_saraksts.append([poga_l7, "Lseptima"])
 
 poga_t8 = tk.Button(pogu_ramis2, text="t8", width=10, height=2)
 poga_t8.pack(side=tk.LEFT, padx=5)
-poga_t8.config(command=lambda: parbaudit_atbildi("Toktava", poga_t8))
+poga_t8.config(command=lambda: Parbaudit_atbildi("Toktava", poga_t8))
 pogu_saraksts.append([poga_t8, "Toktava"])
 
 #-------------------------------------------------------------#
 
-pogaAtkarto = tk.Button(intervalu_skats, text="Atskaņot intervālu", command=atkartot_pedejo, width=20, height=2, bg = 'lightgrey', fg = '#800000', font = ('Verdana', 12, 'bold'))
+pogaAtkarto = tk.Button(intervalu_skats, text="Atskaņot intervālu", command=Atkartot_pedejo, width=20, height=2, bg = 'lightgrey', fg = '#800000', font = ('Verdana', 12, 'bold'))
 pogaAtkarto.pack(pady=10)
 
 #------------------------------- beigu skats -------------------------------#
@@ -654,5 +654,5 @@ beigu_skats = tk.Frame(teksta_kaste)
 
 # sāk Tkinter galveno cilpu
 sakuma_skats.pack(fill='both', expand=True)
-ieladet_visus_audio()
+Ieladet_visus_audio()
 window.mainloop()
