@@ -1,1 +1,1 @@
-# Projekta_darbs 123
+Mans projekta darbs par skaņas intervāliem! :)
